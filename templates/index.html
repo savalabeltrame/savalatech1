@@ -70,10 +70,12 @@
         <h2 class="section-title">{{ t.video_title }}</h2>
         <p style="text-align:center; color:#64748b; margin-bottom:30px;">{{ t.video_desc }}</p>
         <div class="video-container">
-            <video controls style="width:100%; border-radius:12px; background:#000;">
-                <source src="{{ url_for('static', filename='img/video3.mp4') }}" type="video/mp4">
-                Tu navegador no soporta video HTML5.
-            </video>
+            <video src="https://res-console.cloudinary.com/dqbthya6f/thumbnails/transform/v1/video/upload/Zl9hdXRvLHFfYXV0bw==/v1/cmVwYWlyMV9sdXJ1bnQ=/template" 
+       controls 
+       width="100%" 
+       poster="/static/img/poster-video.jpg">
+    Tu navegador no soporta videos HTML5
+</video>
         </div>
     </div>
 </section>
