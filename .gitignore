@@ -20,3 +20,14 @@ img/*.png
 __pycache__/
 *.pyc
 instance/*.db
+# Large media - host externally
+static/img/*.mp4
+static/img/*.mov
+static/img/*.avi
+static/img/*.jpg
+static/img/*.jpeg
+static/img/*.png
+.DS_Store
+__pycache__/
+*.pyc
+instance/*.db
