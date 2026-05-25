@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Accesorios - SavalaTech{% endblock %}
+
+{% block content %}
+<section class="accessories-page">
+    <div class="container">
+        <h1 class="page-title">{{ t.titulo_repuestos }}</h1>
+        
+        <!-- Filtros -->
+        <div class="filters-section">
+            <form method="GET" action="{{ url_for('accessories') }}">
+                <input type="text" name="search" placeholder="{{ t.search_placeholder }}" value="{{ search_query or '' }}">
+                <button type="submit" class="btn-search">{{ t.btn_search }}</button>
+            </form>
+            
+            <div class="category-badges">
+                <a href="{{ url_for('accessories', category='all', brand=current_brand or 'all', search=search_query or '') }}" 
+                   class="category-badge {% if current_category == 'all' or not current_category %}active{% endif %}">
+                    {{ t.btn_all }}
+                </a>
+                {% for cat in categories %}
+                <a href="{{ url_for('accessories', category=cat.id, brand=current_brand or 'all', search=search_query or '') }}" 
+                   class="category-badge {% if current_category == cat.id %}active{% endif %}">
+                    {{ cat['name_' + lang] }}
+                </a>
+                {% endfor %}
+            </div>
+            
+            {% if brands %}
+            <div style="margin-top:15px;">
+                <label style="font-weight:600; color:#0f172a; margin-right:10px;">{{ t.lbl_brand }}:</label>
+                <select onchange="window.location.href=this.value" style="padding:8px 15px; border:2px solid #e2e8f0; border-radius:8px;">
+                    <option value="{{ url_for('accessories', category=current_category or 'all', brand='all', search=search_query or '') }}" 
+                            {% if not current_brand or current_brand == 'all' %}selected{% endif %}>
+                        {{ t.lbl_all_brands }}
+                    </option>
+                    {% for brand in brands %}
+                    <option value="{{ url_for('accessories', category=current_category or 'all', brand=brand, search=search_query or '') }}" 
+                            {% if current_brand == brand %}selected{% endif %}>
+                        {{ brand }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Productos -->
+        {% if products %}
+        <p style="color:#64748b; margin-bottom:20px;">Mostrando <strong>{{ products|length }}</strong> producto(s)</p>
+        
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" onerror="this.src='https://via.placeholder.com/400x300?text=Producto'">
+                    {% if product.stock < 5 %}
+                    <span class="stock-badge">¡Pocas unidades!</span>
+                    {% endif %}
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">{{ product.brand }}</span>
+                    <h3>{{ product.name }}</h3>
+                    <p class="product-model">Modelo: {{ product.model }}</p>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <span class="product-price">R$ {{ "%.2f"|format(product.price) }}</span>
+                        <span style="color:#22c55e; font-size:0.9rem;">
+                            <i class="fas fa-check-circle"></i> {{ product.stock }}
+                        </span>
+                    </div>
+                    <a href="{{ url_for('accessory_detail', accessory_id=product.id) }}" class="btn-details">
+                        {{ t.btn_details }} →
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:60px; background:white; border-radius:12px;">
+            <i class="fas fa-search" style="font-size:3rem; color:#cbd5e1; margin-bottom:20px;"></i>
+            <h3 style="color:#0f172a; margin-bottom:10px;">{{ t.no_products }}</h3>
+            <a href="{{ url_for('accessories') }}" style="color:#2563eb; text-decoration:none; font-weight:600;">{{ t.clear_search }}</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

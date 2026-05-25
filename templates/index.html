@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Inicio - SavalaTech{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+<!-- HERO SECTION CON IMAGEN DE FONDO (MÁS CLARO) -->
+<section class="hero" style="background: linear-gradient(135deg, rgba(15,23,42,0.5) 0%, rgba(30,64,175,0.5) 100%), url('https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=1920&h=1080&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; color: white; padding: 120px 0; text-align: center;">
+    <div class="container">
+        <div class="hero-content">
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">{{ t.titulo_hero }}</h1>
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto 40px; opacity: 0.98; text-shadow: 0 1px 5px rgba(0,0,0,0.2);">{{ t.desc_hero }}</p>
+            <div class="hero-buttons" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="#services" class="btn-hero primary" style="padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 1.1rem; display: inline-block; cursor: pointer; border: none; background: #2563eb; color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); transition: 0.3s;">{{ t.btn_servicios }}</a>
+                <a href="#video" class="btn-hero secondary" style="padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 1.1rem; display: inline-block; cursor: pointer; border: 2px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.25); color: white; backdrop-filter: blur(10px); transition: 0.3s;">{{ t.btn_video }}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="services" class="services-section">
+    <div class="container">
+        <h2 class="section-title">{{ t.btn_servicios }}</h2>
+        
+        {% if services and services|length > 0 %}
+        <div class="services-grid">
+            {% for s in services %}
+            <div class="service-card">
+                <img src="{{ s.image_url }}" alt="{{ s.name_es }}" onerror="this.src='https://via.placeholder.com/400x250?text=Servicio'">
+                <div class="service-content">
+                    <h3>{{ s.name_es }}</h3>
+                    <p>{{ s.description_es }}</p>
+                    <div class="service-footer">
+                        <span class="service-price">R$ {{ "%.2f"|format(s.price) }}</span>
+                        <form action="{{ url_for('add_to_cart', service_id=s.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn-add-cart">
+                                <i class="fas fa-cart-plus"></i> Agregar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:60px; background:white; border-radius:12px; margin-top:30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            <i class="fas fa-tools" style="font-size:3rem; color:#cbd5e1; margin-bottom:20px;"></i>
+            <h3 style="color:#0f172a; margin-bottom:10px;">No hay servicios disponibles</h3>
+            <p style="color:#64748b; margin-bottom:20px;">Visita el panel de administración para agregar servicios.</p>
+            <a href="/admin" style="display:inline-block; background:#2563eb; color:white; padding:12px 25px; border-radius:8px; text-decoration:none; font-weight:600;">Ir al Admin</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- ACCESORIOS PREVIEW -->
+<section class="accessories-preview">
+    <div class="container">
+        <h2 class="section-title">{{ t.titulo_repuestos }}</h2>
+        <p style="text-align:center; color:#64748b; margin-bottom:30px; font-size:1.1rem;">Baterías, pantallas, teclados y cargadores originales</p>
+        <div style="text-align:center;">
+            <a href="{{ url_for('accessories') }}" class="btn-hero primary">Ver Accesorios</a>
+        </div>
+    </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" class="video-section">
+    <div class="container">
+        <h2 class="section-title">{{ t.video_title }}</h2>
+        <p style="text-align:center; color:#64748b; margin-bottom:30px;">{{ t.video_desc }}</p>
+        <div class="video-container">
+            <video controls style="width:100%; border-radius:12px; background:#000;">
+                <source src="{{ url_for('static', filename='img/video3.mp4') }}" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+            </video>
+        </div>
+    </div>
+</section>
+{% endblock %}

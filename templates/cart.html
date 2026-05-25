@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Carrito - SavalaTech{% endblock %}
+
+{% block content %}
+<section style="padding: 80px 0; background: #f8fafc; min-height: 80vh;">
+    <div class="container">
+        <h1 style="text-align:center; font-size:2.5rem; color:#0f172a; margin-bottom:40px;">
+            <i class="fas fa-shopping-cart"></i> Carrito
+        </h1>
+        
+        {% if cart and cart|length > 0 %}
+        <div style="background:white; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+            <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                    <tr style="background:#f1f5f9; text-align:left;">
+                        <th style="padding:15px;">Producto</th>
+                        <th style="padding:15px;">Precio</th>
+                        <th style="padding:15px;">Cant.</th>
+                        <th style="padding:15px;">Subtotal</th>
+                        <th style="padding:15px;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr style="border-bottom:1px solid #e2e8f0;">
+                        <td style="padding:15px;">
+                            <strong>{{ item.name }}</strong><br>
+                            <small style="color:#64748b;">{{ item.type }}</small>
+                        </td>
+                        <td style="padding:15px;">R$ {{ "%.2f"|format(item.price) }}</td>
+                        <td style="padding:15px;">{{ item.qty }}</td>
+                        <td style="padding:15px;"><strong>R$ {{ "%.2f"|format(item.subtotal) }}</strong></td>
+                        <td style="padding:15px;">
+                            <a href="{{ item.remove_url }}" style="color:#ef4444; text-decoration:none;">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div style="margin-top:30px; padding-top:20px; border-top:2px solid #2563eb; text-align:right;">
+                <h2 style="font-size:2rem; color:#2563eb; margin-bottom:20px;">Total: R$ {{ "%.2f"|format(total) }}</h2>
+                
+                <form action="{{ url_for('checkout') }}" method="POST" style="margin-bottom:20px;">
+                    <label style="display:block; margin-bottom:10px; font-weight:600;">Método de Pago:</label>
+                    <div style="margin-bottom:20px;">
+                        <label style="margin-right:20px;"><input type="radio" name="payment_method" value="cash" checked> Efectivo</label>
+                        <label style="margin-right:20px;"><input type="radio" name="payment_method" value="pix"> Pix</label>
+                        <label><input type="radio" name="payment_method" value="card"> Tarjeta</label>
+                    </div>
+                    <button type="submit" style="background:#22c55e; color:white; padding:15px 40px; border:none; border-radius:8px; font-size:1.1rem; font-weight:700; cursor:pointer;">
+                        Confirmar Compra
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div style="text-align:center; padding:60px; background:white; border-radius:12px;">
+            <i class="fas fa-shopping-cart" style="font-size:4rem; color:#cbd5e1; margin-bottom:20px;"></i>
+            <h2 style="color:#0f172a; margin-bottom:15px;">Tu carrito está vacío</h2>
+            <a href="{{ url_for('index') }}" style="display:inline-block; background:#2563eb; color:white; padding:12px 30px; border-radius:8px; text-decoration:none; font-weight:600;">
+                Ver Productos
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}¡Compra Exitosa! - SavalaTech{% endblock %}
+
+{% block content %}
+<section style="padding: 100px 0; background: #f8fafc; min-height: 90vh; display: flex; align-items: center;">
+    <div class="container" style="max-width: 700px; margin: 0 auto;">
+        <div style="background: white; border-radius: 20px; padding: 50px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
+            
+            <!-- Ícono de éxito -->
+            <div style="width: 80px; height: 80px; background: #dcfce7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
+                <i class="fas fa-check" style="font-size: 2.5rem; color: #16a34a;"></i>
+            </div>
+
+            <h1 style="font-size: 2.2rem; color: #0f172a; margin-bottom: 10px; font-weight: 800;">¡Pago Aprobado!</h1>
+            <p style="color: #64748b; margin-bottom: 35px; font-size: 1.1rem;">Tu orden ha sido procesada correctamente.</p>
+
+            <!-- Resumen de la Orden -->
+            <div style="background: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 30px; text-align: left; border: 1px solid #e2e8f0;">
+                <h3 style="margin-bottom: 15px; color: #0f172a; font-size: 1.2rem;">📋 Resumen de tu Compra</h3>
+                
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #cbd5e1;">
+                    <span style="color: #64748b;">N° de Orden:</span>
+                    <strong style="color: #0f172a;">#{{ order.id }}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #cbd5e1;">
+                    <span style="color: #64748b;">Fecha:</span>
+                    <strong style="color: #0f172a;">{{ order.date }}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #cbd5e1;">
+                    <span style="color: #64748b;">Método de Pago:</span>
+                    <strong style="color: #0f172a; text-transform: uppercase;">{{ order.payment }}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 15px; margin-top: 5px; font-size: 1.4rem;">
+                    <span style="color: #0f172a; font-weight: 700;">Total Pagado:</span>
+                    <strong style="color: #2563eb; font-weight: 800;">R$ {{ "%.2f"|format(order.total) }}</strong>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+                <a href="{{ url_for('invoice', order_id=order.id) }}" 
+                   style="background: #ef4444; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s;">
+                    <i class="fas fa-file-pdf"></i> Descargar Factura
+                </a>
+                <a href="{{ url_for('index') }}" 
+                   style="background: #2563eb; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s;">
+                    <i class="fas fa-shopping-bag"></i> Seguir Comprando
+                </a>
+            </div>
+
+            <!-- Soporte WhatsApp -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 15px; display: flex; align-items: center; gap: 12px;">
+                <i class="fab fa-whatsapp" style="font-size: 1.8rem; color: #16a34a;"></i>
+                <div style="text-align: left;">
+                    <p style="margin: 0; font-weight: 600; color: #0f172a;">¿Necesitas ayuda con tu pedido?</p>
+                    <a href="https://wa.me/5547999999999?text=Hola,%20tengo%20una%20consulta%20sobre%20la%20orden%20#{{ order.id }}" 
+                       target="_blank" style="color: #16a34a; text-decoration: none; font-weight: 600;">Contactar por WhatsApp →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

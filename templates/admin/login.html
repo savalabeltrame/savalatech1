@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - SavalaTech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+               display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); 
+                      width: 100%; max-width: 400px; text-align: center; }
+        .login-card h2 { color: #0f172a; margin-bottom: 25px; }
+        .login-card input { width: 100%; padding: 12px 15px; margin: 10px 0; border: 2px solid #e2e8f0; 
+                           border-radius: 8px; font-size: 1rem; }
+        .login-card input:focus { border-color: #2563eb; outline: none; }
+        .login-card button { width: 100%; padding: 14px; background: #2563eb; color: white; border: none; 
+                            border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 15px; }
+        .login-card button:hover { background: #1e40af; }
+        .error { color: #ef4444; margin: 10px 0; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2><i class="fas fa-lock"></i> Admin SavalaTech</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}<p class="error">{{ messages[0] }}</p>{% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - SavalaTech{% endblock %}
+{% block content %}
+<section class="admin-dashboard" style="padding: 60px 0; background: #f8fafc; min-height: 80vh;">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h1 style="color: #0f172a;"><i class="fas fa-tachometer-alt"></i> Panel de Administración</h1>
+            <a href="{{ url_for('admin_logout') }}" style="background: #ef4444; color: white; padding: 10px 20px; 
+               border-radius: 8px; text-decoration: none; font-weight: 600;">Cerrar Sesión</a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+            <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;">
+                <i class="fas fa-shopping-cart" style="font-size: 2rem; color: #2563eb; margin-bottom: 10px;"></i>
+                <h3 style="margin: 0; color: #0f172a;">{{ orders|length }}</h3>
+                <p style="margin: 5px 0 0; color: #64748b;">Órdenes</p>
+            </div>
+            <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;">
+                <i class="fas fa-tools" style="font-size: 2rem; color: #22c55e; margin-bottom: 10px;"></i>
+                <h3 style="margin: 0; color: #0f172a;">{{ services|length }}</h3>
+                <p style="margin: 5px 0 0; color: #64748b;">Servicios</p>
+            </div>
+        </div>
+
+        <!-- Gestionar Servicios -->
+        <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 30px;">
+            <h3 style="margin-bottom: 20px; color: #0f172a;"><i class="fas fa-tools"></i> Gestionar Servicios</h3>
+            
+            <!-- Formulario Agregar -->
+            <form method="POST" action="{{ url_for('admin_add_service') }}" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                <input type="text" name="name_es" placeholder="Nombre (ES)" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="text" name="name_pt" placeholder="Nombre (PT)" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="text" name="description_es" placeholder="Descripción (ES)" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="number" name="price" placeholder="Precio" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="text" name="category" placeholder="Categoría" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="number" name="duration_hours" placeholder="Duración (hs)" required style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                <input type="text" name="image_url" placeholder="URL Imagen" style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; grid-column: span 2;">
+                <button type="submit" style="background: #22c55e; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;">+ Agregar Servicio</button>
+            </form>
+
+            <!-- Lista de Servicios -->
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f1f5f9; text-align: left;">
+                        <th style="padding: 12px 15px;">Servicio</th>
+                        <th style="padding: 12px 15px;">Precio</th>
+                        <th style="padding: 12px 15px;">Categoría</th>
+                        <th style="padding: 12px 15px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in services %}
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px 15px;">{{ s.name_es }}</td>
+                        <td style="padding: 12px 15px;">${{ s.price }}</td>
+                        <td style="padding: 12px 15px;">{{ s.category }}</td>
+                        <td style="padding: 12px 15px;">
+                            <a href="{{ url_for('admin_delete_service', service_id=s.id) }}" 
+                               style="color: #ef4444; text-decoration: none; font-weight: 600;"
+                               onclick="return confirm('¿Eliminar este servicio?')">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Órdenes Recientes -->
+        <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            <h3 style="margin-bottom: 20px; color: #0f172a;"><i class="fas fa-receipt"></i> Órdenes Recientes</h3>
+            {% if orders %}
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f1f5f9; text-align: left;">
+                        <th style="padding: 12px 15px;">Orden #</th>
+                        <th style="padding: 12px 15px;">Fecha</th>
+                        <th style="padding: 12px 15px;">Total</th>
+                        <th style="padding: 12px 15px;">Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px 15px;">#{{ order.id }}</td>
+                        <td style="padding: 12px 15px;">{{ order.created_at.strftime('%d/%m/%Y') if order.created_at else 'N/A' }}</td>
+                        <td style="padding: 12px 15px; font-weight: 600;">${{ order.total }}</td>
+                        <td style="padding: 12px 15px;">{{ order.payment_method }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="color: #64748b; text-align: center; padding: 20px;">No hay órdenes aún.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

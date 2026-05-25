@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Equipo - SavalaTech{% endblock %}
+
+{% block content %}
+<section style="padding: 80px 0; background: #f8fafc;">
+    <div class="container">
+        <h1 style="text-align:center; font-size:2.5rem; color:#0f172a; margin-bottom:50px;">Nuestro Equipo</h1>
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px;">
+            <div style="background:white; padding:30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                <img src="static/img/marco2.jpg" style="width:120px; height:120px; border-radius:50%; margin-bottom:15px; border:3px solid #2563eb;">
+                <h3 style="color:#0f172a; margin-bottom:5px;">Marco Savala</h3>
+                <p style="color:#2563eb; font-weight:600;">Especialista PC-Notebook</p>
+            </div>
+            
+            <div style="background:white; padding:30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                <img src="static/img/marco.jpg" style="width:120px; height:120px; border-radius:50%; margin-bottom:15px; border:3px solid #2563eb;">
+                <h3 style="color:#0f172a; margin-bottom:5px;">Antonio Beltrame</h3>
+                <p style="color:#2563eb; font-weight:600;">Expert Desarrollo wWb</p>
+            </div>
+            
+            <div style="background:white; padding:30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                <img src="static/img/marco5.jpg" style="width:120px; height:120px; border-radius:50%; margin-bottom:15px; border:3px solid #2563eb;">
+                <h3 style="color:#0f172a; margin-bottom:5px;">Marco Antonio</h3>
+                <p style="color:#2563eb; font-weight:600;">Impresoras</p>
+            </div>
+            <div style="background:white; padding:30px; border-radius:12px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+                <img src="static/img/reparar_tv.jpg" style="width:120px; height:120px; border-radius:50%; margin-bottom:15px; border:3px solid #2563eb;">
+                <h3 style="color:#0f172a; margin-bottom:5px;">Savala Beltrame</h3>
+                <p style="color:#2563eb; font-weight:600;">TV</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
