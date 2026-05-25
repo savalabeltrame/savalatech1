@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}Testimonios - SavalaTech{% endblock %}
+
+{% block content %}
+<section class="testimonials-page">
+    <div class="container">
+        
+        <div class="section-title-custom">
+            <h1 class="title-black">Testimonios</h1>
+            <span class="ribbon-green">Clientes</span>
+        </div>
+
+        <div class="testimonials-grid-custom">
+            
+            <!-- Testimonio 1 -->
+            <div class="testimonial-card-custom">
+                <div class="testimonial-img">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop" alt="Carlos">
+                </div>
+                <div class="testimonial-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <h3>Carlos Martínez</h3>
+                    <p class="testimonial-text">"Excelente servicio, repararon mi notebook en menos de 24 horas. Muy profesionales y el precio fue justo. Totalmente recomendados."</p>
+                    <p class="testimonial-date">15 Mayo, 2026</p>
+                </div>
+            </div>
+
+            <!-- Testimonio 2 -->
+            <div class="testimonial-card-custom">
+                <div class="testimonial-img">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop" alt="María">
+                </div>
+                <div class="testimonial-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <h3>María González</h3>
+                    <p class="testimonial-text">"Llevé mi PC para mantenimiento y quedó como nueva. El personal muy atento y me explicaron todo el proceso. Volveré sin dudas."</p>
+                    <p class="testimonial-date">10 Mayo, 2026</p>
+                </div>
+            </div>
+
+            <!-- Testimonio 3 -->
+            <div class="testimonial-card-custom">
+                <div class="testimonial-img">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop" alt="João">
+                </div>
+                <div class="testimonial-content">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <h3>João Silva</h3>
+                    <p class="testimonial-text">"Serviço impecável! Trocaram a tela do meu notebook e ficou perfeito. Preço competitivo e garantia real. Recomendo muito!"</p>
+                    <p class="testimonial-date">5 Mayo, 2026</p>
+                </div>
+            </div>
+
+            <!-- Testimonio 4 -->
+            <div class="testimonial-card-custom">
+                <div class="testimonial-img">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop" alt="Ana">
+                </div>
+                <div class="testimonial-content">
+                    <div class="stars">⭐⭐⭐⭐½</div>
+                    <h3>Ana Rodríguez</h3>
+                    <p class="testimonial-text">"Muy buen servicio técnico. Instalación de software rápida y sin problemas. El único detalle fue la espera, pero valió la pena."</p>
+                    <p class="testimonial-date">1 Mayo, 2026</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+.testimonials-page {
+    padding: 60px 0;
+    background: #f5f5f5;
+    min-height: 80vh;
+}
+
+.testimonials-grid-custom {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.testimonial-card-custom {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.testimonial-card-custom:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    border: 3px solid #4CAF50;
+}
+
+.testimonial-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonial-content {
+    text-align: center;
+}
+
+.stars {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.testimonial-content h3 {
+    font-size: 1.3rem;
+    color: #222;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.testimonial-text {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.testimonial-date {
+    color: #999;
+    font-size: 0.9rem;
+}
+</style>
+
+{% endblock %}

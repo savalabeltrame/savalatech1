@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO DINÁMICO -->
+    <title>{% block title %}SavalaTech{% endblock %}</title>
+    <meta name="description" content="{% block meta_desc %}{{ config.SEO_DESCRIPTION | default('Servicio técnico especializado en reparación y accesorios.') }}{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Font Awesome (Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Open Graph (Facebook/WhatsApp) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="SavalaTech - Reparación y Accesorios">
+    <meta property="og:description" content="Tu clínica de computadoras de confianza.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/bateria-hp.jpg', _external=True) }}">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER / NAVBAR
+         ========================================== -->
+    <header class="header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-laptop-medical"></i> SavalaTech
+            </a>
+            
+            <!-- Menú Principal -->
+            <nav class="navbar">
+                <a href="{{ url_for('index') }}">{{ t.inicio }}</a>
+                <a href="{{ url_for('accessories') }}">{{ t.accesorios }}</a>
+                <a href="{{ url_for('team') }}">{{ t.equipo }}</a>
+                <a href="{{ url_for('blog') }}">{{ t.blog }}</a>
+                <a href="{{ url_for('testimonials') }}">{{ t.testimonios }}</a>
+            </nav>
+            
+            <!-- Acciones (Idiomas, Redes, Carrito) -->
+            <div class="header-actions">
+                
+                <!-- Selector de Idioma -->
+                <div class="language-selector">
+                    <button class="lang-btn" onclick="toggleLangMenu()">
+                        <i class="fas fa-globe"></i> <span>{{ lang.upper() }}</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <a href="{{ url_for('set_language', lang='es') }}" class="lang-item">🇪 Español</a>
+                        <a href="{{ url_for('set_language', lang='pt_BR') }}" class="lang-item">🇧 Português</a>
+                        <a href="{{ url_for('set_language', lang='en') }}" class="lang-item">🇬 English</a>
+                    </div>
+                </div>
+
+                <!-- Redes Sociales -->
+                <div class="header-social">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/5547999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                
+                <!-- Carrito -->
+                <a href="{{ url_for('cart') }}" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    {% if cart_count and cart_count > 0 %}
+                        <span class="cart-badge">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+         ========================================== -->
+    <main>
+        <!-- Mensajes Flash (Alertas) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}" style="text-align:center; padding:15px; margin-top:10px; font-weight:600;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Aquí se carga cada página (Inicio, Accesorios, etc.) -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ==========================================
+         MAPA GOOGLE (JOINVILLE) - FULL WIDTH
+         ========================================== -->
+    <section class="map-section">
+        <div class="map-header">
+            <h2 style="color: white; margin-bottom: 10px;">Encuéntranos</h2>
+            <p style="color: rgba(255,255,255,0.8);">R. Reinaldo Schossland, 1010 - Jardim Iririú, Joinville</p>
+        </div>
+        <div style="width: 100%; height: 450px;">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3577.911359727306!2d-48.79692679999998!3d-26.264540099999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94deb20087f82d67%3A0x800fbae3b482a240!2sR.%20Reinaldo%20Schossland%2C%201010%20-%20Jardim%20Iriri%C3%BA%2C%20Joinville%20-%20SC%2C%2089224-420!5e0!3m2!1ses!2sbr!4v1779566903439!5m2!1ses!2sbr" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer class="footer-pro">
+        <div class="container">
+            <div class="footer-grid-pro">
+                <div class="footer-brand">
+                    <h3><i class="fas fa-laptop-medical"></i> SavalaTech</h3>
+                    <p>{{ t.footer_about }}</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">{{ t.inicio }}</a></li>
+                        <li><a href="{{ url_for('accessories') }}">{{ t.accesorios }}</a></li>
+                        <li><a href="{{ url_for('blog') }}">{{ t.blog }}</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>{{ t.footer_contact }}</h4>
+                    <p><i class="fas fa-phone"></i> +55 48 99185-7171</p>
+                    <p><i class="fas fa-envelope"></i> marcosavala236@gmail.com.br</p>
+                </div>
+            </div>
+            <div class="footer-bottom-pro">
+                <p>{{ t.footer_rights }}</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         JAVASCRIPT (Funcionalidad)
+         ========================================== -->
+    <script>
+        // Función para abrir/cerrar menú de idiomas
+        function toggleLangMenu() {
+            const dropdown = document.getElementById('langDropdown');
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        }
+
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            const selector = document.querySelector('.language-selector');
+            const dropdown = document.getElementById('langDropdown');
+            if (selector && !selector.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
