@@ -9,3 +9,14 @@ static/img/*.avi
 static/img/*.mkv
 static/img/*.mp4
 static/img/*.mov
+# Large media files - host externally
+static/img/*.mp4
+static/img/*.mov
+static/img/*.avi
+img/*.jpg
+img/*.jpeg
+img/*.png
+.DS_Store
+__pycache__/
+*.pyc
+instance/*.db
