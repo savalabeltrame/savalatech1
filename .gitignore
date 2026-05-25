@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 instance/*.db # opcional: la DB se genera en deploy
+img/*.jpg
+img/*.jpeg
