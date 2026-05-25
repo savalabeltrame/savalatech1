@@ -3,3 +3,7 @@ __pycache__/
 instance/*.db # opcional: la DB se genera en deploy
 img/*.jpg
 img/*.jpeg
+static/img/*.mp4
+static/img/*.mov
+static/img/*.avi
+static/img/*.mkv

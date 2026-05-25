@@ -5,3 +5,4 @@
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
+static/img/*.mp4 filter=lfs diff=lfs merge=lfs -text
