@@ -1,3 +1,9 @@
+import sys, os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# ← Tus imports originales van DESPUÉS de estas líneas
+from extensions import db, login_manager, mail, babel
+
 import os
 import io
 from datetime import datetime
