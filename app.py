@@ -1,11 +1,16 @@
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# ← Tus imports originales van DESPUÉS de estas líneas
 from extensions import db, login_manager, mail, babel
 
 import os
 import io
+import logging, sys, os
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
+logger.info("=== SAVALATECH STARTING ===")
+logger.info(f"CWD: {os.getcwd()}")
+logger.info(f"PYTHONPATH: {os.environ.get('PYTHONPATH', 'NOT SET')}")
 from datetime import datetime
 from flask import Flask, request, session, redirect, url_for, render_template, flash, send_file, current_app
 from config import config
@@ -152,7 +157,7 @@ def get_locale():
 def create_app(config_name=None):
     if config_name is None:
         config_name = os.getenv('FLASK_CONFIG', 'default')
-    
+    logger.info(f"config_name: {config_name if 'config_name' in locals() else 'NOT DEFINED'}")
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     
